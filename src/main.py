@@ -12,6 +12,7 @@ edges: pl.DataFrame = (
             pl.col("start_lng"),
             pl.col("end_lat"),
             pl.col("end_lng"),
+            unit="miles",
         ).alias("trip_distance"),
     )
     .select(

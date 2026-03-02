@@ -1,10 +1,10 @@
 #Hub and Spoke
 
-A project to analyze CitiBike trips as a graph network.
+A project to analyze CitiBike trips as a graph network. This is motivated in part by wanting to learn graph data structure.
 
 ### ToDo list
 - [x] Write a function to transform CitiBike data into a directed igraph
-- [ ] Does ride volume between stations decay with geographic distance?
+- [x] Does ride volume between stations decay with geographic distance?
 - [ ] Are dock capacities proportional to structural importance (degree, PageRank, betweenness)?
 - [ ] Which stations act as structural bridges or bottlenecks in the network?
 - [ ] How do flow patterns and centrality shift between morning, evening, and weekends?
