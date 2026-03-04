@@ -13,7 +13,7 @@ from weights import haversine_miles
 plt.style.use("fast")
 
 data: pl.DataFrame = (
-    pl.read_parquet("data/2025_09_rides.parquet")
+    pl.read_parquet("data/09_2025_rides.parquet")
     .with_columns(
         (pl.col("ended_at") - pl.col("started_at"))
         .dt.total_minutes(fractional=True)
@@ -38,7 +38,7 @@ data: pl.DataFrame = (
     )
     .drop_nulls()
     # hard cap for outliers, unreturned bikes
-    .filter(pl.col("ride_duration") < 180, pl.col("ride_distance") < 105_600)
+    .filter(pl.col("ride_duration") < 180, pl.col("ride_distance") < 20)
     .filter(pl.col("ride_duration") > 1, pl.col("ride_distance") > 0.1)
 )
 

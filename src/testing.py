@@ -1,9 +1,4 @@
 import polars as pl
 
-(
-    pl.read_parquet("data/2025_09_rides.parquet")
-    .group_by("end_station_id")
-    .agg(pl.len().alias("count"))
-    .sort("count", descending=True)
-    .write_csv("data/destination_counts.csv")
-)
+# (pl.read_parquet("data/*.parquet").write_parquet("data/09_2025_rides.parquet"))
+print(pl.read_parquet("data/09_2025_rides.parquet").describe())

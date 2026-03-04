@@ -8,7 +8,7 @@ import polars as pl
 from weights import haversine_miles
 
 edges: pl.DataFrame = (
-    pl.read_parquet("data/2025_09_rides.parquet")
+    pl.read_parquet("data/09_2025_rides.parquet")
     .with_columns(
         (pl.col("ended_at") - pl.col("started_at")).alias("ride_duration"),
         haversine_miles(
