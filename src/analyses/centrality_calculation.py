@@ -92,8 +92,8 @@ for hour in range(24):
     )
 
     pr = (
-        centrality.get_in_degree(g)
-        .rename({"in_degree": "centrality"})
+        centrality.get_pagerank(g)
+        .rename({"pagerank": "centrality"})
         .join(station_info, on="station_id", how="left")
     )
     graph_centrality(pr, hour=hour, hourly_rides=hourly_rides)
