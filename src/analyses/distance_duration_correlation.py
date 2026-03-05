@@ -3,14 +3,21 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-import matplotlib.colors as mcolors
 import matplotlib.pyplot as plt
 import numpy as np
 import polars as pl
 
 from weights import haversine_miles
 
-plt.style.use("fast")
+BG = "#1a1a2e"
+FG = "#e0e0e0"
+plt.rcParams["font.family"] = "Andale Mono"
+plt.rcParams["figure.facecolor"] = BG
+plt.rcParams["axes.facecolor"] = BG
+plt.rcParams["text.color"] = FG
+plt.rcParams["axes.labelcolor"] = FG
+plt.rcParams["xtick.color"] = FG
+plt.rcParams["ytick.color"] = FG
 
 data: pl.DataFrame = (
     pl.read_parquet("data/09_2025_rides.parquet")
@@ -74,9 +81,12 @@ for i, ride in enumerate(ride_types):
         )
         ax.set_xscale("log")
         ax.set_yscale("log")
-        ax.set_title(f"{ride} / {member}")
+        ax.set_title(f"{ride} / {member}", color=FG)
 
-fig.supxlabel("Trip distance (miles)")
-fig.supylabel("Ride duration (minutes)")
-fig.colorbar(h[3], ax=axes, label="Ride count")
+fig.supxlabel("Trip distance (miles)", color=FG)
+fig.supylabel("Ride duration (minutes)", color=FG)
+cbar = fig.colorbar(h[3], ax=axes, label="Ride count")
+cbar.set_label("Ride count", color=FG)
+cbar.ax.yaxis.set_tick_params(color=FG)
+plt.setp(cbar.ax.yaxis.get_ticklabels(), color=FG)
 plt.show()
