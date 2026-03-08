@@ -5,13 +5,13 @@ import matplotlib.ticker as ticker
 import polars as pl
 from PIL import Image
 
-FIGURES_DIR = Path("centrality figures")
+FIGURES_DIR = Path("fig_centrality_over_time")
 FIGURES_DIR.mkdir(exist_ok=True)
 
 REQUIRED_COLUMNS = {"lon", "lat", "centrality", "station_id"}
 
 
-def graph_centrality(
+def graph_centrality_hourly(
     df: pl.DataFrame,
     hour: int,
     hourly_rides: list[int],

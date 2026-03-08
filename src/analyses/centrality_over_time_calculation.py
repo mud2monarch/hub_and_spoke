@@ -10,7 +10,7 @@ import igraph as ig
 import polars as pl
 
 import centrality
-from graphing import create_gif, graph_centrality
+from graphing import create_gif, graph_centrality_hourly
 from weights import haversine_miles
 
 logging.basicConfig(level=logging.INFO)
@@ -67,9 +67,9 @@ station_info: pl.DataFrame = (
 
 log.info("Moving on to iterative graph construction...")
 
-weekday_edges = all_edges.filter(pl.col("started_at").dt.weekday() <= 5)
+weekday_edges: pl.LazyFrame = all_edges.filter(pl.col("started_at").dt.weekday() <= 5)
 
-hourly_rides = [
+hourly_rides: list[int] = [
     pl.DataFrame(
         weekday_edges.filter(pl.col("started_at").dt.hour() == h)
         .select(pl.len())
@@ -96,6 +96,6 @@ for hour in range(24):
         .rename({"pagerank": "centrality"})
         .join(station_info, on="station_id", how="left")
     )
-    graph_centrality(pr, hour=hour, hourly_rides=hourly_rides)
+    graph_centrality_hourly(pr, hour=hour, hourly_rides=hourly_rides)
 
 create_gif(offset=5)
